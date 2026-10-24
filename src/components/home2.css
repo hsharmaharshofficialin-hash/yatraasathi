@@ -1,0 +1,7 @@
+.ch-view{overflow:hidden;padding-left:32px}
+.ch-track{--cw:min(340px,78vw);display:flex;gap:18px;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:translateX(calc(var(--i) * (var(--cw) + 18px) * -1))}
+.ch-card{flex:0 0 var(--cw);height:min(44vh,360px);border-radius:22px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);color:#fff;text-decoration:none;opacity:.7;transition:opacity .4s}
+.ch-card.on{opacity:1}
+.ch-ico{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.3rem;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3)}
+.ch-card h2{margin:0;font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:2.8rem;line-height:.95;letter-spacing:.03em}
+.ch-card p{margin:6px 0 0;font-size:1.05rem;line-height:1.25}

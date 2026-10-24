@@ -1,0 +1,62 @@
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { DESTS } from "../data/destinations";
+
+const HERO = "/images/hero-jaipur.jpg";
+const FALLBACK = "/images/hero-temple.jpg";
+const grad = (a, b) => `linear-gradient(160deg,${a},${b})`;
+
+const places = DESTS.map((d) => ({
+  s: d.s, t: d.n, sub: d.b, h: "/destinations/" + d.s, i: d.i, c: d.c, g: grad(d.c + "99", d.d + "88"),
+}));
+
+const tools = [
+  { t: "ASK", h: "/ask", i: "\u{1F4AC}" },
+  { t: "ARENA", h: "/arena", i: "\u{1F3DB}" },
+  { t: "BHEED", h: "/crowd", i: "\u{1F465}" },
+  { t: "DAYS", h: "/itinerary", i: "\u{1F5D3}" },
+  { t: "BOL CHAAL", h: "/phrases", i: "\u{1F5E3}" },
+  { t: "VICHAAR", h: "/ledger", i: "\u{1F4DD}" },
+  { t: "SOS", h: "/sos", i: "\u{1F198}" },
+];
+
+const stats = [
+  { n: DESTS.length, u: "destinations", cap: "Across India", p: "0,28 20,22 40,25 60,12 80,16 100,4" },
+  { n: tools.length, u: "tools", cap: "Built for the trip", p: "0,26 20,18 40,22 60,10 80,14 100,6" },
+  { n: 3, u: "packs", cap: "Work offline", p: "0,24 20,26 40,14 60,18 80,8 100,10" },
+];
+
+const css = `
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600&display=swap');
+.ch-root{position:fixed;inset:0;z-index:9999;overflow-y:auto;overflow-x:hidden;overscroll-behavior-x:contain;
+  color:#fff7ec;font-family:"Barlow Condensed",Arial Narrow,sans-serif;background:#1a0d12}
+.ch-wall{position:fixed;inset:0;z-index:0;background-color:#2b1240;background-size:cover;background-position:center;
+  background-repeat:no-repeat;animation:chfade .9s ease}
+@keyframes chfade{from{opacity:.2}to{opacity:1}}
+.ch-shade{position:fixed;inset:0;z-index:0;background:linear-gradient(to bottom,rgba(15,6,15,.45),rgba(15,6,15,.7))}
+.ch-screen{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:28px 0 96px}
+.ch-logo{margin-left:32px;padding-left:12px;border-left:3px solid #ffd86b;font-family:"Bebas Neue",Impact,sans-serif;
+  font-size:2.2rem;line-height:.9;letter-spacing:.06em}
+.ch-view{overflow:hidden;padding-left:32px;touch-action:pan-y;cursor:grab}
+.ch-track{--cw:min(340px,78vw);display:flex;gap:18px;transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  transform:translateX(calc(var(--i) * (var(--cw) + 18px) * -1))}
+.ch-card{flex:0 0 var(--cw);height:min(44vh,360px);border-radius:22px;padding:20px;display:flex;flex-direction:column;
+  justify-content:space-between;backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);color:#fff;
+  text-decoration:none;user-select:none;opacity:.7;transition:opacity .4s}
+.ch-card.on{opacity:1}
+.ch-ico{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.3rem;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3)}
+.ch-card h2{margin:0;font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:2.8rem;line-height:.95;letter-spacing:.03em}
+.ch-card p{margin:6px 0 0;font-size:1.05rem;line-height:1.25}
+.ch-tabs{display:flex;gap:8px;padding:0 32px;flex-wrap:wrap;margin-top:18px}
+.ch-tab{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;cursor:pointer;font:inherit;font-size:1rem;
+  color:#fff7ec;text-decoration:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+.ch-tab:hover{background:#ffd86b;color:#1a0d05;border-color:#ffd86b}
+.ch-tab:focus-visible,.ch-btn:focus-visible,.ch-card:focus-visible{outline:2px solid #ffd86b;outline-offset:2px}
+.ch-stats{display:flex;gap:28px;padding:0 32px;flex-wrap:wrap;align-items:flex-end}
+.ch-stat{min-width:130px}
+.ch-num{font-family:"Bebas Neue",Impact,sans-serif;font-size:3rem;line-height:1}
+.ch-num small{font-family:"Barlow Condensed",sans-serif;font-size:1rem;margin-left:6px;color:#ffd86b}
+.ch-cap{font-size:.95rem;color:#ffe9cc}

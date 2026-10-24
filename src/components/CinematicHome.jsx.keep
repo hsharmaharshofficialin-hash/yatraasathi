@@ -1,0 +1,37 @@
+export default function CinematicHome() {
+  const [mounted, setMounted] = useState(false);
+  const [idx, setIdx] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [hover, setHover] = useState(false);
+  const drag = useRef({ x: null, moved: false });
+  const lastWheel = useRef(0);
+  const last = places.length - 1;
+  const step = (d) => setIdx((i) => Math.max(0, Math.min(last, i + d)));
+
+  useEffect(() => {
+    setMounted(true);
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPlaying(false);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    if (!playing || hover) return;
+    const id = setInterval(() => setIdx((i) => (i >= last ? 0 : i + 1)), 7000);
+    return () => clearInterval(id);
+  }, [playing, hover, last]);
+
+  if (!mounted) return null;
+

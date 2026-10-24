@@ -1,0 +1,9 @@
+.ch-tabs{display:flex;gap:8px;padding:0 32px;flex-wrap:wrap;margin-top:18px}
+.ch-tab{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;font-size:1rem;color:#fff7ec;text-decoration:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+.ch-tab:hover{background:#ffd86b;color:#1a0d05;border-color:#ffd86b}
+.ch-cap{padding:0 32px;font-size:1.1rem;color:#ffe9cc}
+.ch-ctrl{position:fixed;right:24px;bottom:24px;z-index:3;display:flex;align-items:center;gap:12px}
+.ch-count{font-family:"Bebas Neue",Impact,sans-serif;font-size:1.4rem;letter-spacing:.08em}
+.ch-btn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:#fff7ec;font-size:1.1rem;text-decoration:none;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3)}
+.ch-btn:focus-visible,.ch-tab:focus-visible,.ch-card:focus-visible{outline:2px solid #ffd86b;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.ch-track{transition:none}.ch-wall{animation:none}}
